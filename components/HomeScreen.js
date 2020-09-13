@@ -28,16 +28,14 @@ import {
 
 const HomeScreen = ({navigation}) => {
     return(
-      <View>
+      <View style={{flex:1, justifyContent: 'center', alignItems: 'center'}}>
         <Button
-        title="Go to Jane's profile"
+        title="Go to the camera!"
         onPress={() =>
           navigation.navigate('Camera', { name: 'Camera' })
         }
-      />
-          <Text>
-            yeet          
-          </Text>
+        />
+
         </View>
     )
   }

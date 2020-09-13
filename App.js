@@ -58,7 +58,7 @@ const App = ({navigation}) => {
         <Stack.Screen
           name="Home"
           component={HomeScreen}
-          options={{ title: 'Jane' }}
+          options={{ title: 'Pokemon Recognition' }}
         />
         <Stack.Screen name="Camera" component={CameraScreen} />
       </Stack.Navigator>

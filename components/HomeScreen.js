@@ -27,14 +27,21 @@ import {
 const HomeScreen = ({navigation}) => {
     return(
     <View style={{flex:1, alignItems: 'center', backgroundColor: "black"}}>
-      <Text style={styles.titleText}>Pokemon Card Recognizer</Text>
-      <View style={{flex:2}}>
-        <Image
-        source={{uri: 'https://reactjs.org/logo-og.png'}}
+      {/* 'Pokemon' word logo */}
+      <Image
+        source={require('./images/logo.png')}
         style={styles.backgroundImg}
-        />
+      />
+      <Image
+        source={require('./images/logo-2.jpg')}
+        style={styles.backgroundImg2}
+      />
+
+      <View style={{flex:2, alignItems: 'center'}}>
+        {/* <Text style={styles.titleText}>Card Recognizer</Text> */}
         
-        <View style={{flex: 3,  flexDirection: 'column-reverse', alignItems: 'center', backgroundColor: "black"}}>
+        
+        <View style={{flex: 3,  flexDirection: 'column-reverse', backgroundColor: "black", alignItems: 'center'}}>
 
           {/*go to the help screen */}
           <View style= {{alignSelf:'flex-start'}}>
@@ -52,7 +59,7 @@ const HomeScreen = ({navigation}) => {
               navigation.navigate('Camera', { name: 'Camera' })
             }
             />
-            <Button title = "Test results" 
+            <ResultsButton title = "Test results" 
             onPress={() =>
               navigation.navigate('Results', { name: 'Results' })
             }
@@ -77,6 +84,12 @@ const HomeScreen = ({navigation}) => {
     </TouchableOpacity>
   )
 
+  const ResultsButton = ({onPress, title}) => (
+    <TouchableOpacity activeOpacity={0.3} onPress={onPress} style={styles.resultsBtn}>
+      <Text style={styles.resultsText}>{title}</Text>
+    </TouchableOpacity>
+  )
+
   const styles = StyleSheet.create({
     titleText: {
       color: 'white',
@@ -91,7 +104,7 @@ const HomeScreen = ({navigation}) => {
       elevation: 10,
       width: 300,
       borderRadius: 75,
-      paddingVertical: 25,
+      paddingVertical: 20,
       paddingHorizontal: 35,
       backgroundColor: "steelblue",
       
@@ -104,9 +117,27 @@ const HomeScreen = ({navigation}) => {
       textTransform: "uppercase"
     },
 
-    helpBtn:{
+    resultsBtn:{
       elevation: 10,
-      backgroundColor: "skyblue",
+      width: 300,
+      borderRadius: 75,
+      paddingVertical: 20,
+      paddingHorizontal: 35,
+      backgroundColor: "cadetblue",
+      
+    },
+    resultsText: {
+      fontSize: 18,
+      color: "#fff",
+      fontWeight: "bold",
+      alignSelf: "center",
+      textTransform: "uppercase"
+    },
+
+    helpBtn:{
+      alignSelf:"flex-start", 
+      elevation: 10,
+      backgroundColor: "lightblue",
       borderRadius: 50,
       paddingVertical: 15,
       paddingHorizontal: 30
@@ -120,9 +151,18 @@ const HomeScreen = ({navigation}) => {
     },
 
     backgroundImg: {
-      width: 425,
-      height: 350,
+      width: 455,
+      height: 200,
       resizeMode: 'cover',
+      backgroundColor: 'black',
+      
+    },
+    backgroundImg2: {
+      // width: 425,
+      // height: 200,
+      resizeMode: 'center',
+      backgroundColor: 'black',
+      
     }
   })
 

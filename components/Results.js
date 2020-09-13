@@ -101,7 +101,7 @@ class ResultScreen extends React.Component{
         {"name": "ProductName",
         "values": [this.state.cardName]}, // TODO: Replace testName1 with actual input from props (something like this.props.cardname, or whatever brian decides prop name is) *****************
         {"name": "SetName",
-        "values": [setName]}
+        "values": [setFixedName]}
       ]
     }, {headers:{"Accept": "application/json", "Authorization": this.state.key, "content-type": "text/json"}})
     .then(res => {

@@ -11,10 +11,6 @@ import 'react-native-gesture-handler';
  //import react
 import React from 'react';
 
-//import necessary tools to allow for navigation in react native
-import { NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
-
 //import basic react native components
 import {
     SafeAreaView,

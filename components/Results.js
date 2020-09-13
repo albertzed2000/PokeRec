@@ -54,7 +54,8 @@ class ResultScreen extends React.Component{
       notFound: false,
       cardName: "",
       setName: "",
-      buyLink: ""
+      buyLink: "",
+      imageLink: "",
     }
   }
 
@@ -127,7 +128,7 @@ class ResultScreen extends React.Component{
     {headers:{"Accept": "application/json", "Authorization": this.state.key}})
    .then(res => {
      if(res.data["results"].length > 0){ //if the list of SKUs is greater than 0, we set our productSKUS list to it
-       this.setState({buyLink: res.data["results"][0]["url"]});
+       this.setState({buyLink: res.data["results"][0]["url"], imageLink: res.data["results"][0]["imageUrl"]}); //save the link to buying the card and a direct link to the image source
      }
    })
    .catch(err => console.log(err));
@@ -155,6 +156,7 @@ class ResultScreen extends React.Component{
          Set Name {this.state.setName}
         </Text>
 
+        {/* Hyperlink to the store where you can buy the card */}
         <Text onPress={() => Linking.openURL(this.state.buyLink)}>
          Buy it here
         </Text>

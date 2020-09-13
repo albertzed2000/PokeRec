@@ -21,61 +21,73 @@ import {
     Text,
     StatusBar,
     TouchableOpacity,
+    Image,
   } from 'react-native';
 
 const HomeScreen = ({navigation}) => {
     return(
-
-        //go to the camera screen
-      <View>
-        <CameraButton title = "Go to the camera!" 
-        onPress={() =>
-          navigation.navigate('Camera', { name: 'Camera' })
-        }
-        />
-
-        
-        {/*go to the help screen */}
-        <HelpButton
-        title="How does this work?"
-        onPress={() =>
-          navigation.navigate('Help', { name: 'Helpscreen' })
-        }
-        />
-
-        <Button
-        title="Results test"
-        onPress={() =>
-          navigation.navigate('Results', { name: 'Resultz' })
-        }
+    <View style={{flex:1, alignItems: 'center', backgroundColor: "black"}}>
+      <Text style={styles.titleText}>Pokemon Card Recognizer</Text>
+      <View style={{flex:2}}>
+        <Image
+        source={{uri: 'https://reactjs.org/logo-og.png'}}
+        style={styles.backgroundImg}
         />
         
+        <View style={{flex: 3,  flexDirection: 'column-reverse', alignItems: 'center', backgroundColor: "black"}}>
+
+          {/*go to the help screen */}
+          <View style= {{alignSelf:'flex-start'}}>
+            <HelpButton
+            title="?"
+            onPress={() =>
+              navigation.navigate('Help', { name: 'Helpscreen' })
+            }
+            />
+          </View>
+          {/* go to the camera screen */}
+          <View>
+            <CameraButton title = "Go to the camera!" 
+            onPress={() =>
+              navigation.navigate('Camera', { name: 'Camera' })
+            }
+            />
+          </View>
         </View>
-    )
-  }
+      </View>
+    </View>
+  )
+}
 
   const CameraButton = ({onPress, title}) => (
-    <TouchableOpacity onPress={onPress} style={styles.cameraBtn}>
+    <TouchableOpacity activeOpacity={0.3} onPress={onPress} style={styles.cameraBtn}>
       <Text style={styles.cameraText}>{title}</Text>
     </TouchableOpacity>
   )
 
   const HelpButton = ({onPress, title}) => (
-    <TouchableOpacity onPress={onPress} style={styles.helpBtn}>
+    <TouchableOpacity activeOpacity={0.3} onPress={onPress} style={styles.helpBtn}>
       <Text style={styles.helpText}>{title}</Text>
     </TouchableOpacity>
   )
 
   const styles = StyleSheet.create({
-    cameraBtn:{
-      flex:1,
-      justifyContent: 'center',
-      alignItems: 'flex-end',
-      elevation: 8,
-      backgroundColor: "#009688",
-      borderRadius: 10,
+    titleText: {
+      color: 'white',
+      fontSize: 25,
+      fontWeight: 'bold',
+      textShadowColor: 'green',
+      textShadowRadius: 100,
+      paddingBottom: 25,
       paddingVertical: 25,
-      paddingHorizontal: 12
+    },
+    cameraBtn:{
+      elevation: 10,
+      width: 300,
+      borderRadius: 75,
+      paddingVertical: 25,
+      paddingHorizontal: 35,
+      backgroundColor: "steelblue",
       
     },
     cameraText: {
@@ -87,23 +99,25 @@ const HomeScreen = ({navigation}) => {
     },
 
     helpBtn:{
-      flex:1,
-      justifyContent: 'center',
-      alignItems: 'flex-end',
-      elevation: 8,
-      backgroundColor: "#009688",
-      borderRadius: 10,
-      paddingVertical: 25,
-      paddingHorizontal: 12
-      
+      elevation: 10,
+      backgroundColor: "skyblue",
+      borderRadius: 50,
+      paddingVertical: 15,
+      paddingHorizontal: 30
     },
+
     helpText: {
-      fontSize: 18,
+      fontSize: 20,
       color: "#fff",
       fontWeight: "bold",
-      alignSelf: "center",
       textTransform: "uppercase"
     },
+
+    backgroundImg: {
+      width: 425,
+      height: 350,
+      resizeMode: 'cover',
+    }
   })
 
 

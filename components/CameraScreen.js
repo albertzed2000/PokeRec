@@ -39,7 +39,7 @@ Amplify.configure({
     endpoints: [
       {
         name: 'pokedex',   //your api name
-        endpoint:'https://lkui5eu18d.execute-api.us-east-1.amazonaws.com/default1', //Your Endpoint URL
+        endpoint:'https://lkui5eu18d.execute-api.us-east-1.amazonaws.com/test2', //Your Endpoint URL
       },
     ],
   },
@@ -57,7 +57,7 @@ Amplify.configure({
         objectName: '',
       };
     }
-    
+
    // It selects image from filesystem or capture from camera
     captureImageButtonHandler = () => {
       this.setState({
@@ -110,9 +110,9 @@ Amplify.configure({
     
         API.post(apiName, path, init).then(response => {
           console.log(response)
-          if (JSON.stringify(response.Labels.length) > 0) {
+          if (JSON.stringify(response.CustomLabels.length) > 0) {
             this.setState({
-              objectName: response.Labels[0].Name,
+              objectName: response.CustomLabels[0].Name,
             });
           } else {
             alert('Please Try Again.');

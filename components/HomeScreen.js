@@ -39,9 +39,22 @@ const HomeScreen = ({navigation}) => {
 
       <View style={{flex:2, alignItems: 'center'}}>
         {/* <Text style={styles.titleText}>Card Recognizer</Text> */}
+        {/* go to the camera screen */}
+        <View>
+            <CameraButton title = "Go to the camera!" 
+            onPress={() =>
+              navigation.navigate('Camera', { name: 'Camera' })
+            }
+            />
+          {/* go to the results screen */}
+            <ResultsButton title = "Test results" 
+            onPress={() =>
+              navigation.navigate('Results', { name: 'Results' })
+            }
+            />
+        </View>
         
-        
-        <View style={{flex: 3,  flexDirection: 'column-reverse', backgroundColor: "black", alignItems: 'center'}}>
+        <View style={{flex: 3,  flexDirection: 'column-reverse', backgroundColor: "black", alignSelf: 'flex-start'}}>
 
           {/*go to the help screen */}
           <View style= {{alignSelf:'flex-start'}}>
@@ -52,19 +65,7 @@ const HomeScreen = ({navigation}) => {
             }
             />
           </View>
-          {/* go to the camera screen */}
-          <View>
-            <CameraButton title = "Go to the camera!" 
-            onPress={() =>
-              navigation.navigate('Camera', { name: 'Camera' })
-            }
-            />
-            <ResultsButton title = "Test results" 
-            onPress={() =>
-              navigation.navigate('Results', { name: 'Results' })
-            }
-            />
-          </View>
+          
           
         </View>
       </View>
@@ -106,7 +107,7 @@ const HomeScreen = ({navigation}) => {
       borderRadius: 75,
       paddingVertical: 20,
       paddingHorizontal: 35,
-      backgroundColor: "steelblue",
+      backgroundColor: "red",
       
     },
     cameraText: {
@@ -123,12 +124,12 @@ const HomeScreen = ({navigation}) => {
       borderRadius: 75,
       paddingVertical: 20,
       paddingHorizontal: 35,
-      backgroundColor: "cadetblue",
+      backgroundColor: "white",
       
     },
     resultsText: {
       fontSize: 18,
-      color: "#fff",
+      color: "black",
       fontWeight: "bold",
       alignSelf: "center",
       textTransform: "uppercase"
@@ -137,7 +138,7 @@ const HomeScreen = ({navigation}) => {
     helpBtn:{
       alignSelf:"flex-start", 
       elevation: 10,
-      backgroundColor: "lightblue",
+      backgroundColor: "skyblue",
       borderRadius: 50,
       paddingVertical: 15,
       paddingHorizontal: 30

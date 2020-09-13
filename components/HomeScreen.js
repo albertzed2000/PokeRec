@@ -20,15 +20,15 @@ import {
     Button,
     Text,
     StatusBar,
+    TouchableOpacity,
   } from 'react-native';
 
 const HomeScreen = ({navigation}) => {
     return(
 
         //go to the camera screen
-      <View style={styles.button}>
-        <Button
-        title="Go to the camera!"
+      <View>
+        <CameraButton title = "Go to the camera!" 
         onPress={() =>
           navigation.navigate('Camera', { name: 'Camera' })
         }
@@ -36,7 +36,7 @@ const HomeScreen = ({navigation}) => {
 
         
         {/*go to the help screen */}
-        <Button
+        <HelpButton
         title="How does this work?"
         onPress={() =>
           navigation.navigate('Help', { name: 'Helpscreen' })
@@ -47,12 +47,56 @@ const HomeScreen = ({navigation}) => {
     )
   }
 
+  const CameraButton = ({onPress, title}) => (
+    <TouchableOpacity onPress={onPress} style={styles.cameraBtn}>
+      <Text style={styles.cameraText}>{title}</Text>
+    </TouchableOpacity>
+  )
+
+  const HelpButton = ({onPress, title}) => (
+    <TouchableOpacity onPress={onPress} style={styles.helpBtn}>
+      <Text style={styles.helpText}>{title}</Text>
+    </TouchableOpacity>
+  )
+
   const styles = StyleSheet.create({
-    button:{
+    cameraBtn:{
       flex:1,
       justifyContent: 'center',
-      alignItems: 'center',
-    }
+      alignItems: 'flex-end',
+      elevation: 8,
+      backgroundColor: "#009688",
+      borderRadius: 10,
+      paddingVertical: 25,
+      paddingHorizontal: 12
+      
+    },
+    cameraText: {
+      fontSize: 18,
+      color: "#fff",
+      fontWeight: "bold",
+      alignSelf: "center",
+      textTransform: "uppercase"
+    },
+
+    helpBtn:{
+      flex:1,
+      justifyContent: 'center',
+      alignItems: 'flex-end',
+      elevation: 8,
+      backgroundColor: "#009688",
+      borderRadius: 10,
+      paddingVertical: 25,
+      paddingHorizontal: 12
+      
+    },
+    helpText: {
+      fontSize: 18,
+      color: "#fff",
+      fontWeight: "bold",
+      alignSelf: "center",
+      textTransform: "uppercase"
+    },
   })
 
 

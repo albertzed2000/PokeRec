@@ -59,6 +59,7 @@ Amplify.configure({
         capturedImage: '',
         objectName: '',
         objectSet: '',
+        loading: true,
       };
     }
 
@@ -90,6 +91,10 @@ Amplify.configure({
         },
       );
     };
+
+    gotoResultsButtonHandler = () => {
+      this.props.navigation.navigate('Results', { setName: this.state.objectSet, cardName: this.state.objectName});
+    }
     
    // this method triggers when you click submit. If the image is valid then It will send the image to API Gateway. 
     submitButtonHandler = () => {
@@ -172,24 +177,24 @@ Amplify.configure({
               cardName = cardName.slice(0, cardName.length - 1)
               */
 
-              console.log(cardName)
+              // console.log(cardName)
               this.setState({
                 objectName: cardName,
+                loading: false
               });
             } else {
               alert('Please Try Again.');
             }
+          
           })
           .catch(error => console.log(error)); 
         });
       }
         );
+    }
 
-      this.props.navigation.navigate('Results', { setName: this.state.objectSet, cardName: this.state.objectName});
-    
-        
-      }
     };
+    
     
     render() {
       if (this.state.image !== '') {
@@ -234,6 +239,12 @@ Amplify.configure({
               <Text style={styles.buttonText}>Submit</Text>
             </TouchableHighlight>
           </ScrollView>
+          
+          <TouchableHighlight
+              style={[styles.buttonContainer, styles.gotoButton]}
+              onPress={this.gotoResultsButtonHandler}>
+              <Text style={styles.buttonText}>Results</Text>
+            </TouchableHighlight>
         </View>
       );
     }
@@ -302,6 +313,18 @@ Amplify.configure({
       flexDirection: 'row',
       alignItems: 'center',
     },
+    gotoButton: {
+      borderWidth: 1,
+      borderColor: 'grey',
+      backgroundColor: '#eee',
+      width: '50%',
+      height: 200,
+      marginTop: 10,
+      marginLeft: 90,
+      flexDirection: 'row',
+      alignItems: 'center',
+    },
+
     previewImage: {
       width: '100%',
       height: '100%',

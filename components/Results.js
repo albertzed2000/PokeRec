@@ -60,12 +60,20 @@ class ResultScreen extends React.Component{
     }
 
     //setup props if they exist
-    if(this.props.setName){
-      this.setState({setName:this.props.setName})
+    if(this.props.route.params.setName){
+      this.setState({setName:route.params.setName})
     }
-    if(this.props.cardName){
-      this.setState({cardName:this.props.cardName})
+    if(this.props.route.params.cardName){
+      this.setState({cardName:route.params.cardName})
     }
+
+    //TEST THIS VERSION IF THE ABOVE VERSION DOESN'T WORK
+    // if(this.props.route.params.setName){
+    //   this.setState({setName:this.props.route.params.setName})
+    // }
+    // if(this.props.route.params.cardName){
+    //   this.setState({cardName:this.props.route.params.cardName})
+    // }
 
   }
 
@@ -76,7 +84,7 @@ class ResultScreen extends React.Component{
 
     //step 1: convert setName to snakeCase
 
-    let setName = snakeToSpacedCamel(testSet1); // TODO: Replace testSet1 with actual input from props (something like this.props.name, or whatever brian names the variables) *******************************************
+    let setName = snakeToSpacedCamel(this.state.setName); // TODO: Replace testSet1 with actual input from props (something like this.props.name, or whatever brian names the variables) *******************************************
 
 
     //step 2: use searchCategoryProducts, enter the card + set we're looking for, and receive a list of product IDS matching the description
@@ -86,7 +94,7 @@ class ResultScreen extends React.Component{
     await axios.post(`https://api.tcgplayer.com/catalog/categories/3/search`, {
       "filters": [ //filter by card name and name of set
         {"name": "ProductName",
-        "values": [testName1]}, // TODO: Replace testName1 with actual input from props (something like this.props.cardname, or whatever brian decides prop name is) *****************
+        "values": [this.state.cardName]}, // TODO: Replace testName1 with actual input from props (something like this.props.cardname, or whatever brian decides prop name is) *****************
         {"name": "SetName",
         "values": [setName]}
       ]

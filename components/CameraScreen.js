@@ -33,6 +33,19 @@ import {
 import ImagePicker from 'react-native-image-picker';
 import {API} from 'aws-amplify';
 
+// Amplify configuration for API-Gateway
+Amplify.configure({
+  API: {
+    endpoints: [
+      {
+        name: 'pokedex',   //your api name
+        endpoint:'https://szfyr4zejd.execute-api.us-east-1.amazonaws.com/Test2', //Your Endpoint URL
+      },
+    ],
+  },
+ });
+
+
   class Registration extends Component {
     constructor(props) {
       super(props);
@@ -82,7 +95,7 @@ import {API} from 'aws-amplify';
       ) {
         alert('Please Capture the Image');
       } else {
-        const apiName = 'LabellingAPI';
+        const apiName = 'pokedex';
         const path = '/storeimage';
         const init = {
           headers: {

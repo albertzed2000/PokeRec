@@ -15,6 +15,7 @@ import axios from 'axios';
 //import basic react native components
 import {
   SafeAreaView,
+  Linking,
   StyleSheet,
   ScrollView,
   View,
@@ -29,7 +30,7 @@ const testName2 = "Polteageist";
 const testSet2 = "darkness_ablaze";
 
 //test data
-const testName1 = "Growlithe";
+const testName1 = "Arcanine";
 const testSet1 = "rebel_clash";
 
 //convert a snakecase input to camelcase but spaced. eg rebel_clash to rebel Clash. Allows us to use output as a search query for our trading cards
@@ -52,7 +53,8 @@ class ResultScreen extends React.Component{
       productPrice: 0,
       notFound: false,
       cardName: "",
-      setName: ""
+      setName: "",
+      buyLink: ""
     }
   }
 
@@ -119,7 +121,16 @@ class ResultScreen extends React.Component{
       
 
 
-      
+    //step 4.5: get the link at which a user can buy these pokemon cards from.
+
+    await axios.get('https://api.tcgplayer.com/catalog/products/productIds?productIds=' + this.state.productNum,
+    {headers:{"Accept": "application/json", "Authorization": this.state.key}})
+   .then(res => {
+     if(res.data["results"].length > 0){ //if the list of SKUs is greater than 0, we set our productSKUS list to it
+       this.setState({buyLink: res.data["results"][0]["url"]});
+     }
+   })
+   .catch(err => console.log(err));
       
       
     //step 5: we have the price of the card now. display the price
@@ -142,6 +153,10 @@ class ResultScreen extends React.Component{
 
         <Text>
          Set Name {this.state.setName}
+        </Text>
+
+        <Text onPress={() => Linking.openURL(this.state.buyLink)}>
+         Buy it here
         </Text>
 
         <Text>

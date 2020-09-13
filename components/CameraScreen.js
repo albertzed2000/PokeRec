@@ -150,7 +150,7 @@ Amplify.configure({
             console.log(base64Data);
             // get card name
           const apiName = 'pokedex'
-          const path2 = '/getCard';
+          const path2 = '/getCardName';
           const init2 = {
           headers: {
             Accept: 'application/json',
@@ -164,8 +164,15 @@ Amplify.configure({
           API.post(apiName, path2, init2).then(response => {
             console.log(response)
             if (JSON.stringify(response.TextDetections.length) > 0) {
-              cardName = response.TextDetections.join(" ");
-              console.log("cardName")
+              let cardName = response.TextDetections[0]["DetectedText"]
+              /** let cardName = ""
+              for (let i = 0; i < response.TextDetections.length; i++) {
+                cardName = cardName + response.TextDetections[i]["DetectedText"] + " "
+              }
+              cardName = cardName.slice(0, cardName.length - 1)
+              */
+
+              console.log(cardName)
               this.setState({
                 objectName: cardName,
               });
@@ -177,6 +184,8 @@ Amplify.configure({
         });
       }
         );
+
+      this.props.navigation.navigate('Results', { setName: this.state.objectSet, cardName: this.state.objectName});
     
         
       }

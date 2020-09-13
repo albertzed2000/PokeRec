@@ -60,20 +60,21 @@ class ResultScreen extends React.Component{
     }
 
     //setup props if they exist
-    if(this.props.route.params.setName){
+    /** if(this.props.route.params.setName){
       this.setState({setName:route.params.setName})
     }
     if(this.props.route.params.cardName){
       this.setState({cardName:route.params.cardName})
     }
+    */
 
-    //TEST THIS VERSION IF THE ABOVE VERSION DOESN'T WORK
-    // if(this.props.route.params.setName){
-    //   this.setState({setName:this.props.route.params.setName})
-    // }
-    // if(this.props.route.params.cardName){
-    //   this.setState({cardName:this.props.route.params.cardName})
-    // }
+    // TEST THIS VERSION IF THE ABOVE VERSION DOESN'T WORK
+    if(this.props.route.params.setName){
+      this.setState({setName:this.props.route.params.setName})
+    }
+    if(this.props.route.params.cardName){
+      this.setState({cardName:this.props.route.params.cardName})
+    }
 
   }
 

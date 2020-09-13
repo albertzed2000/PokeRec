@@ -32,6 +32,9 @@ import {
 //import other stuff
 import ImagePicker from 'react-native-image-picker';
 import Amplify, {API} from 'aws-amplify';
+import ImageEditor from "@react-native-community/image-editor";
+import RNFS from 'react-native-fs';
+
 
 // Amplify configuration for API-Gateway
 Amplify.configure({
@@ -55,6 +58,7 @@ Amplify.configure({
         image: '',
         capturedImage: '',
         objectName: '',
+        objectSet: '',
       };
     }
 
@@ -62,6 +66,7 @@ Amplify.configure({
     captureImageButtonHandler = () => {
       this.setState({
         objectName: '',
+        objectSet: '',
       });
     
       ImagePicker.showImagePicker(
@@ -95,30 +100,85 @@ Amplify.configure({
       ) {
         alert('Please capture an image with the camera or select one from device');
       } else {
-        const apiName = 'pokedex';
-        const path = '/uploadImage';
-        const init = {
-          headers: {
-            Accept: 'application/json',
-            'Content-Type': 'application/x-amz-json-1.1',
-          },
-          body: JSON.stringify({
-            Image: this.state.base64String,
-            name: 'storeImage.png',
-          }),
+
+        cropName = {
+          offset: {x: 42, y: 0},
+          size: {width: 137, height: 32},
         };
-    
-        API.post(apiName, path, init).then(response => {
+
+        cropSet = {
+          offset: {x: 0, y: 272},
+          size: {width: 64, height: 64},
+        }
+
+        ImageEditor.cropImage(this.state.capturedImage, cropSet).then(url1 => {
+          console.log("Cropped image uri", url1);
+          RNFS.readFile(url1, 'base64').then(base64Data =>{
+            console.log(base64Data)
+            const apiName = 'pokedex';
+          const path1 = '/uploadImage';
+          const init1 = {
+            headers: {
+              Accept: 'application/json',
+              'Content-Type': 'application/x-amz-json-1.1',
+            },
+            body: JSON.stringify({
+              Image: base64Data,
+              name: 'storeImage1.png',
+            }),
+        };
+
+        API.post(apiName, path1, init1).then(response => {
           console.log(response)
           if (JSON.stringify(response.CustomLabels.length) > 0) {
             this.setState({
-              objectName: response.CustomLabels[0].Name,
+              objectSet: response.CustomLabels[0].Name,
             });
           } else {
             alert('Please Try Again.');
           }
         })
         .catch(error => console.log(error));
+          
+          })
+          
+        })
+
+        ImageEditor.cropImage(this.state.capturedImage, cropName).then(url2 => {
+          console.log("Cropped image uri", url2);
+          RNFS.readFile(url2, 'base64').then(base64Data => {
+            console.log(base64Data);
+            // get card name
+          const apiName = 'pokedex'
+          const path2 = '/getCard';
+          const init2 = {
+          headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/x-amz-json-1.1',
+          },
+          body: JSON.stringify({
+            Image: base64Data,
+            name: 'storeImage2.png',
+          }),
+          }
+          API.post(apiName, path2, init2).then(response => {
+            console.log(response)
+            if (JSON.stringify(response.TextDetections.length) > 0) {
+              cardName = response.TextDetections.join(" ");
+              console.log("cardName")
+              this.setState({
+                objectName: cardName,
+              });
+            } else {
+              alert('Please Try Again.');
+            }
+          })
+          .catch(error => console.log(error)); 
+        });
+      }
+        );
+    
+        
       }
     };
     

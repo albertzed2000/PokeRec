@@ -52,7 +52,13 @@ const HomeScreen = ({navigation}) => {
               navigation.navigate('Camera', { name: 'Camera' })
             }
             />
+            <Button title = "Test results" 
+            onPress={() =>
+              navigation.navigate('Results', { name: 'Results' })
+            }
+            />
           </View>
+          
         </View>
       </View>
     </View>

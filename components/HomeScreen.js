@@ -26,7 +26,7 @@ const HomeScreen = ({navigation}) => {
     return(
 
         //go to the camera screen
-      <View style={{flex:1, justifyContent: 'center', alignItems: 'center'}}>
+      <View style={styles.button}>
         <Button
         title="Go to the camera!"
         onPress={() =>
@@ -47,6 +47,13 @@ const HomeScreen = ({navigation}) => {
     )
   }
 
+  const styles = StyleSheet.create({
+    button:{
+      flex:1,
+      justifyContent: 'center',
+      alignItems: 'center',
+    }
+  })
 
 
 export default HomeScreen;

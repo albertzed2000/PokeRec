@@ -1,3 +1,5 @@
+import 'react-native-gesture-handler';
+
 /**
  * Sample React Native App
  * https://github.com/facebook/react-native
@@ -6,17 +8,32 @@
  * @flow strict-local
  */
 
+ //import react
 import React from 'react';
+
+//import necessary tools to allow for navigation in react native
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
+
+//import camera functions
 import { RNCamera, FaceDetector } from 'react-native-camera';
+
+import CameraScreen from "./components/CameraScreen";
+import HomeScreen from "./components/HomeScreen";
+import Results from "./components/Results";
+
+//import basic react native components
 import {
   SafeAreaView,
   StyleSheet,
   ScrollView,
   View,
+  Button,
   Text,
   StatusBar,
 } from 'react-native';
 
+//import other relevant react components
 import {
   Header,
   LearnMoreLinks,
@@ -25,54 +42,41 @@ import {
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
 
-const App: () => React$Node = () => {
+
+//create a stack navigator
+const Stack = createStackNavigator();
+
+
+//
+
+
+//our main app, which consists of a stack of navigatable screens
+const App = ({navigation}) => {
   return (
-    <>
-      <StatusBar barStyle="dark-content" />
-      <SafeAreaView>
-        <ScrollView
-          contentInsetAdjustmentBehavior="automatic"
-          style={styles.scrollView}>
-          <Header />
-          {global.HermesInternal == null ? null : (
-            <View style={styles.engine}>
-              <Text style={styles.footer}>Engine: Hermes</Text>
-            </View>
-          )}
-          <View style={styles.body}>
-            <View style={styles.sectionContainer}>
-              <Text style={styles.sectionTitle}>Step One</Text>
-              <Text style={styles.sectionDescription}>
-                Edit <Text style={styles.highlight}>App.js</Text> to change this
-                screen and then come back to see your edits.
-              </Text>
-            </View>
-            <View style={styles.sectionContainer}>
-              <Text style={styles.sectionTitle}>See Your Changes</Text>
-              <Text style={styles.sectionDescription}>
-                <ReloadInstructions />
-              </Text>
-            </View>
-            <View style={styles.sectionContainer}>
-              <Text style={styles.sectionTitle}>Debug</Text>
-              <Text style={styles.sectionDescription}>
-                <DebugInstructions />
-              </Text>
-            </View>
-            <View style={styles.sectionContainer}>
-              <Text style={styles.sectionTitle}>Learn More</Text>
-              <Text style={styles.sectionDescription}>
-                Read the docs to discover what to do next:
-              </Text>
-            </View>
-            <LearnMoreLinks />
-          </View>
-        </ScrollView>
-      </SafeAreaView>
-    </>
+    <NavigationContainer>
+      <Stack.Navigator>
+        <Stack.Screen
+          name="Home"
+          component={HomeScreen}
+          options={{ title: 'Jane' }}
+        />
+        <Stack.Screen name="Camera" component={CameraScreen} />
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 };
 
+/*
+const App: () => React$Node = () => {
+  return (
+    <>
+      <NavigationContainer>
+
+      </NavigationContainer>
+    </>
+  );
+};
+*/
 const styles = StyleSheet.create({
   scrollView: {
     backgroundColor: Colors.lighter,

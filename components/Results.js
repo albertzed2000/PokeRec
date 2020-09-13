@@ -22,6 +22,7 @@ import {
   Button,
   Text,
   StatusBar,
+  TouchableOpacity
 } from 'react-native';
 
 
@@ -57,6 +58,15 @@ class ResultScreen extends React.Component{
       buyLink: "",
       imageLink: "",
     }
+
+    //setup props if they exist
+    if(this.props.setName){
+      this.setState({setName:this.props.setName})
+    }
+    if(this.props.cardName){
+      this.setState({cardName:this.props.cardName})
+    }
+
   }
 
   async componentDidMount(){
@@ -142,35 +152,79 @@ class ResultScreen extends React.Component{
   }
   render(){
     return(
-      <View>
+      <View style={{
+        backgroundColor:'darkcyan',
+        flex: 1,
+        flexDirection: 'column',
+        justifyContent: 'space-between',
+        }}>
 
-        <Text>
-         Card Number {this.state.productNum}
+        <Text style={styles.cardNum}>
+         Card Number: {this.state.productNum}
         </Text>
 
-        <Text>
-         Card Name {this.state.cardName}
+        <Text style={styles.cardName}>
+         Card Name: {this.state.cardName}
         </Text>
 
-        <Text>
-         Set Name {this.state.setName}
+        <Text style={styles.setName}>
+         Set Name: {this.state.setName}
+        </Text>     
+
+        <Text style={styles.price}>
+         This card is worth up to: ${this.state.productPrice}
         </Text>
 
-        {/* Hyperlink to the store where you can buy the card */}
-        <Text onPress={() => Linking.openURL(this.state.buyLink)}>
-         Buy it here
-        </Text>
+        <BuyBtn onPress={() => Linking.openURL(this.state.buyLink)} style={styles.buyBtn} title='Buy it here!'/>
 
-        <Text>
-         This card is worth up to ${this.state.productPrice}
-        </Text>
 
       </View>
     )
   }
 }
 
+const BuyBtn = ({onPress, title}) => (
+  <TouchableOpacity onPress={onPress} style={styles.buyBtn}>
+    <Text style={styles.buyBtn}>{title}</Text>
+  </TouchableOpacity>
+)
 
+const styles = StyleSheet.create({
+  cardNum: {
+    color: 'turquoise',
+    fontWeight: 'bold',
+    fontSize: 30
+  }
+,
+  cardName: {
+    color: 'aquamarine',
+    fontWeight: 'bold',
+    fontSize: 30
+  },
+
+  setName: {
+    color: 'lightskyblue',
+    fontWeight: 'bold',
+    fontSize: 30
+  },
+
+  price: {
+    color: 'lightblue',
+    fontWeight: 'bold',
+    fontSize: 25
+  },
+
+  buyBtn: {
+    alignSelf: 'center',
+    color: 'white',
+    backgroundColor: 'skyblue',
+    borderRadius: 60,
+    paddingVertical: 10,
+    paddingHorizontal: 15,
+    fontWeight: 'bold',
+    fontSize: 30
+  }
+})
 
 
 export default ResultScreen;

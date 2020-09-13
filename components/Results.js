@@ -31,15 +31,13 @@ const testName2 = "Polteageist";
 const testSet2 = "darkness_ablaze";
 
 //test data
-const testName1 = "Arcanine";
-const testSet1 = "rebel_clash";
+const testName1 = "Caterpie";
+const testSet1 = "rebel clash";
 
 //convert a snakecase input to camelcase but spaced. eg rebel_clash to rebel Clash. Allows us to use output as a search query for our trading cards
 const snakeToSpacedCamel = (str) => str.replace(
   /([-_][a-z])/g,
-  (group) => group.toUpperCase()
-                  .replace('-', ' ')
-                  .replace('_', ' ')
+  (group) => group.replace('_', ' ')
 );
 
 
@@ -76,11 +74,10 @@ class ResultScreen extends React.Component{
   async componentDidMount(){
 
     if(this.props.route.params.setName){
-      console.log(this.props.route.params.setName)
-      this.setState({setName:this.props.route.params.setName})
+      a = snakeToSpacedCamel(this.props.route.params.setName)
+      this.setState({setName:a})
     }
     if(this.props.route.params.cardName){
-      console.log(this.props.route.params.cardName)
       this.setState({cardName:this.props.route.params.cardName})
     }
 
@@ -88,20 +85,23 @@ class ResultScreen extends React.Component{
 
 
     //step 1: convert setName to snakeCase
+    console.log("step1")
+    console.log(this.state.setName)
+    console.log(snakeToSpacedCamel(this.state.setName))
 
-    let setFixedName = snakeToSpacedCamel(this.state.setName); // TODO: Replace testSet1 with actual input from props (something like this.props.name, or whatever brian names the variables) *******************************************
-    this.setState({setName:setFixedName})
+    // TODO: Replace testSet1 with actual input from props (something like this.props.name, or whatever brian names the variables) *******************************************
+    console.log("break")
 
     //step 2: use searchCategoryProducts, enter the card + set we're looking for, and receive a list of product IDS matching the description
         //step 2+: pick the first result from the list of results we get
         //step 2++: return an error if result list is empty (no cards are found)
-        
+        a = snakeToSpacedCamel(this.props.route.params.setName)
     await axios.post(`https://api.tcgplayer.com/catalog/categories/3/search`, {
       "filters": [ //filter by card name and name of set
         {"name": "ProductName",
-        "values": [this.state.cardName]}, // TODO: Replace testName1 with actual input from props (something like this.props.cardname, or whatever brian decides prop name is) *****************
+        "values": [this.props.route.params.cardName]}, // TODO: Replace testName1 with actual input from props (something like this.props.cardname, or whatever brian decides prop name is) *****************
         {"name": "SetName",
-        "values": [setFixedName]}
+        "values": []}
       ]
     }, {headers:{"Accept": "application/json", "Authorization": this.state.key, "content-type": "text/json"}})
     .then(res => {

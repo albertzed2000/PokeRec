@@ -31,7 +31,7 @@ import {
 
 //import other stuff
 import ImagePicker from 'react-native-image-picker';
-import amplify, {API} from 'aws-amplify';
+import Amplify, {API} from 'aws-amplify';
 
 // Amplify configuration for API-Gateway
 Amplify.configure({

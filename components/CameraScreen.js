@@ -31,7 +31,7 @@ import {
 
 //import other stuff
 import ImagePicker from 'react-native-image-picker';
-import {API} from 'aws-amplify';
+import amplify, {API} from 'aws-amplify';
 
 // Amplify configuration for API-Gateway
 Amplify.configure({
@@ -93,7 +93,7 @@ Amplify.configure({
         this.state.capturedImage == undefined ||
         this.state.capturedImage == null
       ) {
-        alert('Please Capture the Image');
+        alert('Please capture an image with the camera or select one from device');
       } else {
         const apiName = 'pokedex';
         const path = '/storeimage';

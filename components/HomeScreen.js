@@ -42,12 +42,7 @@ const HomeScreen = ({navigation}) => {
           navigation.navigate('Help', { name: 'Helpscreen' })
         }
         />
-        <Button
-        title="How does this work?"
-        onPress={() =>
-          navigation.navigate('Results', { name: 'Helpscreen' })
-        }
-        />
+
 
         </View>
     )

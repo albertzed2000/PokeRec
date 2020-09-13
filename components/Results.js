@@ -55,8 +55,18 @@ class ResultScreen extends React.Component{
       notFound: false,
       cardName: "",
       setName: "",
-      buyLink: ""
+      buyLink: "",
+      imageLink: "",
     }
+
+    //setup props if they exist
+    if(this.props.setName){
+      this.setState({setName:this.props.setName})
+    }
+    if(this.props.cardName){
+      this.setState({cardName:this.props.cardName})
+    }
+
   }
 
   async componentDidMount(){
@@ -128,7 +138,7 @@ class ResultScreen extends React.Component{
     {headers:{"Accept": "application/json", "Authorization": this.state.key}})
    .then(res => {
      if(res.data["results"].length > 0){ //if the list of SKUs is greater than 0, we set our productSKUS list to it
-       this.setState({buyLink: res.data["results"][0]["url"]});
+       this.setState({buyLink: res.data["results"][0]["url"], imageLink: res.data["results"][0]["imageUrl"]}); //save the link to buying the card and a direct link to the image source
      }
    })
    .catch(err => console.log(err));

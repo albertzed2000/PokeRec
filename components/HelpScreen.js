@@ -26,31 +26,16 @@ import {
     StatusBar,
   } from 'react-native';
 
-const HomeScreen = ({navigation}) => {
+const HelpScreen = ({navigation}) => {
     return(
-
-        //go to the camera screen
-      <View style={{flex:1, justifyContent: 'center', alignItems: 'center'}}>
-        <Button
-        title="Go to the camera!"
-        onPress={() =>
-          navigation.navigate('Camera', { name: 'Camera' })
-        }
-        />
-
-        
-        {/*go to the help screen */}
-        <Button
-        title="How does this work?"
-        onPress={() =>
-          navigation.navigate('Help', { name: 'Helpscreen' })
-        }
-        />
-
+      <View>
+          <Text>
+            This is the Help screen.          
+          </Text>
         </View>
     )
   }
 
 
 
-export default HomeScreen;
+export default HelpScreen;

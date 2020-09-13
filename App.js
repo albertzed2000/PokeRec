@@ -21,6 +21,8 @@ import { RNCamera, FaceDetector } from 'react-native-camera';
 import CameraScreen from "./components/CameraScreen";
 import HomeScreen from "./components/HomeScreen";
 import Results from "./components/Results";
+import HelpScreen from "./components/HelpScreen";
+
 
 //import basic react native components
 import {
@@ -55,12 +57,9 @@ const App = ({navigation}) => {
   return (
     <NavigationContainer>
       <Stack.Navigator>
-        <Stack.Screen
-          name="Home"
-          component={HomeScreen}
-          options={{ title: 'Pokemon Recognition' }}
-        />
+        <Stack.Screen name="Home" component={HomeScreen} options={{ title: 'Pokemon Recognition' }}/>
         <Stack.Screen name="Camera" component={CameraScreen} />
+        <Stack.Screen name="Help" component={HelpScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );
